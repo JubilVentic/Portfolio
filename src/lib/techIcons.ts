@@ -1,0 +1,62 @@
+import type { SimpleIcon } from "simple-icons";
+import {
+  siCss,
+  siDocker,
+  siFigma,
+  siFirebase,
+  siGoogleanalytics,
+  siGooglesearchconsole,
+  siGraphql,
+  siGodaddy,
+  siHostinger,
+  siHtml5,
+  siJavascript,
+  siLighthouse,
+  siMariadb,
+  siMongodb,
+  siMysql,
+  siNestjs,
+  siNextdotjs,
+  siNodedotjs,
+  siPhp,
+  siPostgresql,
+  siPython,
+  siReact,
+  siSemrush,
+  siSupabase,
+  siTypescript,
+} from "simple-icons";
+
+/** Display label → Simple Icon. Missing = text-only pill (no forced fake logo). */
+const TECH_ICONS: Record<string, SimpleIcon> = {
+  HTML: siHtml5,
+  CSS: siCss,
+  JavaScript: siJavascript,
+  TypeScript: siTypescript,
+  React: siReact,
+  Figma: siFigma,
+  "Node.js": siNodedotjs,
+  "Next.js": siNextdotjs,
+  NestJS: siNestjs,
+  PHP: siPhp,
+  Python: siPython,
+  PostgreSQL: siPostgresql,
+  MySQL: siMysql,
+  MariaDB: siMariadb,
+  MongoDB: siMongodb,
+  GraphQL: siGraphql,
+  Firebase: siFirebase,
+  Supabase: siSupabase,
+  Hostinger: siHostinger,
+  GoDaddy: siGodaddy,
+  Docker: siDocker,
+  "Google Search Console": siGooglesearchconsole,
+  "Search Console": siGooglesearchconsole,
+  "Google Analytics": siGoogleanalytics,
+  Semrush: siSemrush,
+  Lighthouse: siLighthouse,
+};
+
+export function getTechIcon(label: string): SimpleIcon | undefined {
+  return TECH_ICONS[label];
+}
