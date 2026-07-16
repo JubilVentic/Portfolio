@@ -25,7 +25,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl scroll-mt-28 flex-col justify-center px-4 py-16 sm:px-6 lg:py-24"
+      className="relative mx-auto flex min-h-[calc(100dvh-4rem)] max-w-6xl scroll-mt-28 flex-col justify-center px-4 py-16 sm:px-6 lg:py-24"
     >
       <div className="max-w-2xl">
         <p className="text-sm text-zinc-400">I am {site.name.split(" ")[0]}</p>
@@ -38,10 +38,11 @@ export function Hero() {
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <a
             href={site.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/5"
-            download
           >
-            Download CV
+            View CV
           </a>
           <div className="flex items-center gap-3">
             <a

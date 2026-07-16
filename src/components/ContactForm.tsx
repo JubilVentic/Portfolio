@@ -3,12 +3,35 @@
 import { useState, FormEvent } from "react";
 import { site } from "@/data/site";
 
-export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mbdngjyg";
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+export function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sent");
+    const form = e.currentTarget;
+    setStatus("sending");
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -22,7 +45,8 @@ export function ContactForm() {
           name="name"
           type="text"
           required
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-card px-4 py-2.5 text-white outline-none ring-accent focus:ring-2"
+          disabled={status === "sending"}
+          className="mt-1.5 w-full rounded-xl border border-white/10 bg-card px-4 py-2.5 text-white outline-none ring-accent focus:ring-2 disabled:opacity-60"
         />
       </div>
       <div>
@@ -34,7 +58,8 @@ export function ContactForm() {
           name="email"
           type="email"
           required
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-card px-4 py-2.5 text-white outline-none ring-accent focus:ring-2"
+          disabled={status === "sending"}
+          className="mt-1.5 w-full rounded-xl border border-white/10 bg-card px-4 py-2.5 text-white outline-none ring-accent focus:ring-2 disabled:opacity-60"
         />
       </div>
       <div>
@@ -46,19 +71,25 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          className="mt-1.5 w-full resize-y rounded-xl border border-white/10 bg-card px-4 py-2.5 text-white outline-none ring-accent focus:ring-2"
+          disabled={status === "sending"}
+          className="mt-1.5 w-full resize-y rounded-xl border border-white/10 bg-card px-4 py-2.5 text-white outline-none ring-accent focus:ring-2 disabled:opacity-60"
         />
       </div>
       <button
         type="submit"
-        className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-8"
+        disabled={status === "sending"}
+        className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60 sm:w-auto sm:px-8"
       >
-        Send message
+        {status === "sending" ? "Sending…" : "Send message"}
       </button>
       {status === "sent" ? (
         <p className="text-sm text-accent" role="status">
-          Thanks — your message was recorded locally. Wire this form to your API or
-          email service to go live. Meanwhile, email{" "}
+          Thanks — your message was sent. I&apos;ll get back to you soon.
+        </p>
+      ) : null}
+      {status === "error" ? (
+        <p className="text-sm text-red-400" role="alert">
+          Something went wrong. Please try again or email{" "}
           <a href={`mailto:${site.email}`} className="underline">
             {site.email}
           </a>
