@@ -3,10 +3,19 @@ import { ContactForm } from "@/components/ContactForm";
 import { SectionHeading } from "@/components/SectionHeading";
 import { site } from "@/data/site";
 import { BentoCard } from "@/components/BentoCard";
+import { seo } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: `Get in touch with ${site.name} for web development and SEO projects.`,
+  title: {
+    absolute: seo.pages.contact.title,
+  },
+  description: seo.pages.contact.description,
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: seo.pages.contact.title,
+    description: seo.pages.contact.description,
+    url: "/contact",
+  },
 };
 
 export default function ContactPage() {

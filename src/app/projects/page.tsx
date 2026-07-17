@@ -5,15 +5,42 @@ import { projects } from "@/data/projects";
 import { BentoCard } from "@/components/BentoCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TagPill } from "@/components/TagPill";
+import { getBaseUrl, seo } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "Selected case studies in full-stack development and technical SEO.",
+  title: {
+    absolute: seo.pages.projects.title,
+  },
+  description: seo.pages.projects.description,
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    title: seo.pages.projects.title,
+    description: seo.pages.projects.description,
+    url: "/projects",
+  },
 };
 
 export default function ProjectsPage() {
+  const baseUrl = getBaseUrl();
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Featured projects",
+    itemListElement: projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: project.title,
+      description: project.description,
+      url: project.liveUrl ?? `${baseUrl}/projects#${project.slug}`,
+    })),
+  };
+
   return (
     <main className="py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Projects"
