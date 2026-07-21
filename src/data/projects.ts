@@ -13,6 +13,24 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "modern-pix",
+    title: "Modern Pix — Mirror Photobooth Website",
+    description:
+      "Marketing website for Modern Pix, the first Mirror Photobooth rental in Iligan and a trusted photobooth provider across Mindanao for weddings, birthdays, corporate events, and celebrations.",
+    tags: ["Next.js", "React", "Technical SEO"],
+    engineering:
+      "Built a conversion-focused marketing site with a full-bleed hero, package discovery, booking CTA flow, testimonials, and mobile-responsive layouts optimized for event inquiries.",
+    seo: "Structured for local discovery around Iligan and Mindanao photobooth searches, with clear page hierarchy, strong CTAs, and performance-minded delivery on Vercel.",
+    metrics: [
+      { label: "Year", value: "2026" },
+      { label: "Focus", value: "Brand + Bookings" },
+      { label: "Type", value: "Business site" },
+    ],
+    image: "/images/projects/modern-pix.png",
+    liveUrl: "https://modernpix.vercel.app/",
+    repoUrl: "https://github.com/JubilVentic/ModernPix",
+  },
+  {
     slug: "my-tibanga-portal",
     title: "MyTibangaPortal — Barangay Document & Profiling System",
     description:
@@ -84,7 +102,7 @@ export const projects: Project[] = [
 ];
 
 export const featuredSlugs = [
+  "modern-pix",
   "my-tibanga-portal",
   "gideon-klogo-portfolio",
-  "ember-oak-cafe",
 ];
